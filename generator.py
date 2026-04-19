@@ -10,18 +10,20 @@ class PromptGenerator:
             generation_config={"response_mime_type": "application/json"}
         )
 
-    def generate_variations(self, base_task: str, num_variations: int = 3) -> list[str]:
-        """Generates prompt variations of purposefully DIFFERENT qualities."""
+    def generate_variations(self, base_task: str, num_variations: int = 5) -> list[str]:
+        """Generates prompt variations based on academic prompt engineering strategies."""
         print(f"Generating {num_variations} prompt variations using Gemini...")
         
         system_instruction = f"""
         You are an expert Prompt Engineer. The user will provide a base task.
         Your goal is to generate exactly {num_variations} unique prompt instructions.
         
-        CRITICAL: To test our evaluation system, you MUST generate prompts of varying quality:
-        - 1 extremely HIGH quality, detailed, step-by-step prompt.
-        - 1 AVERAGE quality prompt with basic instructions.
-        - 1 extremely POOR quality, vague, and confusing prompt (e.g. "do the math thing").
+        CRITICAL: To test our evaluation system against academic benchmarks, you MUST generate prompts that follow these 5 specific styles:
+        1. Chain-of-Thought (CoT): explicitly instruct the model to think step-by-step before answering.
+        2. Persona-based: give the model an expert persona (e.g., world-class mathematician).
+        3. Zero-shot Standard: direct, professional instructions without extra reasoning steps.
+        4. Concise: extremely brief and to the point.
+        5. Baseline/Poor: intentionally vague and unhelpful (e.g., "do the math thing") to serve as a negative control.
         
         Return the response as a JSON object containing a list of strings under the key "prompts".
         Example Output format:

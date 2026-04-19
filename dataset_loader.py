@@ -18,6 +18,10 @@ def load_benchmark(name: str = "gsm8k", num_samples: int = 3) -> list[dict]:
             {
                 "input": "Julie is reading a 120-page book. Yesterday, she was able to read 12 pages and today, she read twice as many pages as yesterday. If she wants to read half of the remaining pages tomorrow, how many pages should she read?",
                 "expected": "42"
+            },
+            {
+                "input": "James writes a 3-page letter to 2 different friends twice a week. How many pages does he write a year?",
+                "expected": "624"
             }
         ],
         "logic": [

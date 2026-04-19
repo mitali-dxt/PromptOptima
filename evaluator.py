@@ -24,8 +24,8 @@ class OllamaEvaluator:
             print(f"Error calling Ollama API: {e}")
             return ""
 
-    def evaluate_with_judge(self, question: str, generated_answer: str, expected_answer: str) -> float:
-        """Uses the Ollama model as a judge to score the generated answer."""
+    def evaluate_with_judge(self, question: str, generated_answer: str, expected_answer: str) -> tuple[float, str]:
+        """Uses the Ollama model as a judge to score and explain the generated answer."""
         judge_prompt = f"""
         You are an impartial judge evaluating a math answer.
         Question: {question}
@@ -42,13 +42,14 @@ class OllamaEvaluator:
         try:
             match = re.search(r'\b(1(\.0+)?|0\.5|0(\.0+)?)\b', judge_response)
             if match:
-                return float(match.group(0))
+                score = float(match.group(0))
+                return score, judge_response.strip()
                 
             match = re.search(r'\d+(\.\d+)?', judge_response)
             if match:
                 score = float(match.group(0))
-                return max(0.0, min(1.0, score))
+                return max(0.0, min(1.0, score)), judge_response.strip()
                 
-            return 0.0
+            return 0.0, judge_response.strip()
         except ValueError:
-            return 0.0
+            return 0.0, judge_response.strip()

@@ -22,7 +22,7 @@ def main():
         print(f"WARNING: Could not connect to Ollama at {ollama_url}. Please ensure Ollama is running.")
         
     # Load hardcoded benchmark (Options: "gsm8k", "logic")
-    dataset = load_benchmark(name="gsm8k", num_samples=3)
+    dataset = load_benchmark(name="gsm8k", num_samples=5)
 
     # Initialize modules
     generator = PromptGenerator(api_key=api_key)
@@ -31,7 +31,7 @@ def main():
 
     # Run optimizer
     base_task = "Solve the given grade-school math word problem step by step and provide the final numerical answer."
-    optimizer.run(base_task=base_task, num_variations=3)
+    optimizer.run(base_task=base_task, num_variations=5)
 
 if __name__ == "__main__":
     main()
